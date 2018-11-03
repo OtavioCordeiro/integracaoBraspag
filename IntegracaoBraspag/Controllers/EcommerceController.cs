@@ -35,21 +35,108 @@ namespace IntegracaoBraspag.Controllers
             string transactionUrl = ConfigurationManager.AppSettings["TransactionUrl"];
             string requestUri = string.Concat(transactionUrl, "/v2/sales");
 
-            HttpClient httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("MerchantId", "a44734dd-92e1-4031-8479-c07d4b299474");
-            httpClient.DefaultRequestHeaders.Add("MerchantKey", "NSPAUODNTWWRUTDBOKQJXLIBPWBROCQMUDYIRMHW");
+            var response = RequestHttp("Post", requestUri, stringContent);
 
-            var response = httpClient.PostAsync(requestUri, stringContent).Result;
-            var contents = response.Content.ReadAsStringAsync().Result;
-            CreateTransactionResponse createTransactionResponse = JsonConvert.DeserializeObject<CreateTransactionResponse>(contents);
+            if (response?.IsSuccessStatusCode == true)
+            {
+                var contents = response.Content.ReadAsStringAsync().Result;
+                CreateTransactionResponse createTransactionResponse = JsonConvert.DeserializeObject<CreateTransactionResponse>(contents);
+
+                ViewBag.PaymentId = createTransactionResponse.Payment.PaymentId;
+                ViewBag.ReturnMessage = "Transação criada com sucesso";
+
+                return View("OperationTransaction");
+
+            }
+            else
+            {
+                return View("Falha");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult OperationTransaction()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult OperationTransaction(OperationTransactionRequest request)
+        {
+
+            switch (request.Operation)
+            {
+                case Contracts.Request.OperationTransaction.Query:
+                    string queryUrl = ConfigurationManager.AppSettings["QueryUrl"];
+                    string queryUrn = string.Format("/v2/sales/{0}", request.PaymentId);
+                    string queryUri = string.Concat(queryUrl, queryUrn);
+                    var queryResponse = RequestHttp("Get", queryUri);
+                    if (queryResponse.IsSuccessStatusCode)
+                    {
+                        ViewBag.ReturnMessage = "Transação consultada com sucesso";
+                    }
+                    break;
+
+                case Contracts.Request.OperationTransaction.Capture:
+                    string captureUrl = ConfigurationManager.AppSettings["TransactionUrl"];
+                    string captureUrn = string.Format("/v2/sales/{0}/capture", request.PaymentId);
+                    string captureUri = string.Concat(captureUrl, captureUrn);
+                    var captureResponse = RequestHttp("Put", captureUri);
+                    if (captureResponse.IsSuccessStatusCode)
+                    {
+                        ViewBag.ReturnMessage = "Transação capturada com sucesso";
+                    }
+                    break;
+
+                case Contracts.Request.OperationTransaction.Void:
+                    string voidUrl = ConfigurationManager.AppSettings["TransactionUrl"];
+                    string voidUrn = string.Format("/v2/sales/{0}/void", request.PaymentId);
+                    string voidUri = string.Concat(voidUrl, voidUrn);
+                    var voidResponse = RequestHttp("Put", voidUri);
+                    if (voidResponse.IsSuccessStatusCode)
+                    {
+                        ViewBag.ReturnMessage = "Transação cancelada com sucesso";
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            ViewBag.PaymentId = request.PaymentId;
 
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Teste()
+        public HttpResponseMessage RequestHttp(string method, string requestUri, StringContent stringContent = null)
         {
-            return View();
+
+            HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("MerchantId", "a44734dd-92e1-4031-8479-c07d4b299474");
+            httpClient.DefaultRequestHeaders.Add("MerchantKey", "NSPAUODNTWWRUTDBOKQJXLIBPWBROCQMUDYIRMHW");
+
+            switch (method.ToUpper())
+            {
+                case "POST":
+                    httpResponseMessage = httpClient.PostAsync(requestUri, stringContent).Result;
+                    break;
+
+                case "GET":
+                    httpResponseMessage = httpClient.GetAsync(requestUri).Result;
+                    break;
+
+                case "PUT":
+                    httpResponseMessage = httpClient.PutAsync(requestUri, stringContent).Result;
+                    break;
+
+                default:
+                    throw new NotImplementedException("Metodo http não implementado");
+            }
+
+            return httpResponseMessage;
+
         }
     }
 }

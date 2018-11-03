@@ -20,7 +20,7 @@ namespace IntegracaoBraspag.Contracts
         public string ProofOfSale { get; set; }
         public string AcquirerTransactionId { get; set; }
         public string AuthorizationCode { get; set; }
-        public string PaymentId { get; set; }
+        public Guid PaymentId { get; set; }
         public string ReceivedDate { get; set; }
         public int CapturedAmount { get; set; }
         public string CapturedDate { get; set; }
