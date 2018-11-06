@@ -1,0 +1,70 @@
+﻿@model IntegracaoCartao.Contracts.Request.OperationTransactionRequest
+
+@{
+    ViewBag.Title = "OperationTransaction";
+
+    List<SelectListItem> operations = new List<SelectListItem>();
+    SelectListItem captureTransaction = new SelectListItem();
+    captureTransaction.Text = "Captura";
+    captureTransaction.Value = "Capture";
+
+    SelectListItem voidTransaction = new SelectListItem();
+    voidTransaction.Text = "Cancela";
+    voidTransaction.Value = "Void";
+
+    SelectListItem queryTransaction = new SelectListItem();
+    queryTransaction.Text = "Consulta";
+    queryTransaction.Value = "Query";
+
+    operations.Add(captureTransaction);
+    operations.Add(voidTransaction);
+    operations.Add(queryTransaction);
+
+}
+
+<h2>OperationTransaction</h2>
+
+@{
+    if (string.IsNullOrWhiteSpace(ViewBag?.ReturnMessage) == false)
+    {
+        <p>Mensagem de retorno: @ViewBag.ReturnMessage</p>
+    }
+}
+
+@using (Html.BeginForm("OperationTransaction", "Ecommerce"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>OperationTransactionRequest</h4>
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PaymentId, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PaymentId, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag?.PaymentId } })
+                @Html.ValidationMessageFor(model => model.PaymentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Operation, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Operation, operations, "Escolha")
+                @Html.ValidationMessageFor(model => model.Operation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Confirm" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
+
