@@ -42,29 +42,35 @@ namespace IntegracaoBraspag.Controllers
         [HttpPost]
         public ActionResult CreateTransaction(CreateTransactionRequest request)
         {
-            string jsonRequest = JsonConvert.SerializeObject(request);
-            StringContent stringContent = new StringContent(jsonRequest, UnicodeEncoding.UTF8, "application/json");
-
-            string transactionUrl = ConfigurationManager.AppSettings["TransactionUrl"];
-            string requestUri = string.Concat(transactionUrl, "/v2/sales");
-
-            var response = RequestHttp("Post", requestUri, stringContent);
-
-            if (response?.IsSuccessStatusCode == true)
+            if (ModelState.IsValid)
             {
-                var contents = response.Content.ReadAsStringAsync().Result;
-                CreateTransactionResponse createTransactionResponse = JsonConvert.DeserializeObject<CreateTransactionResponse>(contents);
 
-                ViewBag.PaymentId = createTransactionResponse.Payment.PaymentId;
-                ViewBag.ReturnMessage = "Transação criada com sucesso";
+                string jsonRequest = JsonConvert.SerializeObject(request);
+                StringContent stringContent = new StringContent(jsonRequest, UnicodeEncoding.UTF8, "application/json");
 
-                return View("OperationTransaction");
+                string transactionUrl = ConfigurationManager.AppSettings["TransactionUrl"];
+                string requestUri = string.Concat(transactionUrl, "/v2/sales");
 
+                var response = RequestHttp("Post", requestUri, stringContent);
+
+                if (response?.IsSuccessStatusCode == true)
+                {
+                    var contents = response.Content.ReadAsStringAsync().Result;
+                    CreateTransactionResponse createTransactionResponse = JsonConvert.DeserializeObject<CreateTransactionResponse>(contents);
+
+                    ViewBag.PaymentId = createTransactionResponse.Payment.PaymentId;
+                    ViewBag.ReturnMessage = "Transação criada com sucesso";
+
+                    return View("OperationTransaction");
+
+                }
+                else
+                {
+                    return View("Falha");
+                }
             }
-            else
-            {
-                return View("Falha");
-            }
+
+            return View(request);
         }
 
         [HttpGet]

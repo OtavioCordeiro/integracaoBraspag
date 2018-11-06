@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -14,8 +15,12 @@ namespace IntegracaoBraspag.Contracts
 
         public string Provider { get; set; }
         public string Type { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "O valor deve ser maior que zero")]
+        [Display(Name = "Valor da transação")]
         public int Amount { get; set; }
         public bool Capture { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "A parcela deve ser maior que zero")]
+        [Display(Name = "Parcelas")]
         public int Installments { get; set; }
         public CreditCard CreditCard { get; set; }
         public int ServiceTaxAmount { get; set; }
@@ -25,6 +30,7 @@ namespace IntegracaoBraspag.Contracts
         public string ProofOfSale { get; set; }
         public string AcquirerTransactionId { get; set; }
         public string AuthorizationCode { get; set; }
+        [Display(Name = "Identificador da transação")]
         public Guid PaymentId { get; set; }
         public string ReceivedDate { get; set; }
         public int CapturedAmount { get; set; }
