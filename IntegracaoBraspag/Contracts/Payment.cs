@@ -7,6 +7,11 @@ namespace IntegracaoBraspag.Contracts
 {
     public class Payment
     {
+        public Payment()
+        {
+            this.CreditCard = new CreditCard();
+        }
+
         public string Provider { get; set; }
         public string Type { get; set; }
         public int Amount { get; set; }

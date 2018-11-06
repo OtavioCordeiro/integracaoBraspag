@@ -9,8 +9,10 @@ namespace IntegracaoBraspag.Contracts.Request
     {
         public CreateTransactionRequest()
         {
-            Payment = new Payment();
-            Payment.Provider = "Simulado";
+            this.Payment = new Payment();
+            this.Payment.Provider = "Simulado";
+            this.Customer = new Customer();
+
         }
         public string MerchantOrderId { get; set; }
         public Customer Customer { get; set; }
