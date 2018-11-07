@@ -1,7 +1,18 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Pagina Inicial";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>  
+
+<div>
+    <h1> <strong><center> Transacional de Cartão </center></strong> </h1>
+</div>
+
+<div class="text-justify">
+
+    <p><b>Autorização</b>: A autorização (ou pré-autorização) é uma operação que viabiliza o processamento de uma venda com um cartão de crédito.A pré-autorização apenas sensibiliza o limite do cliente, mas ainda não gera cobrança na fatura para o consumidor. Desta forma, é necessário uma segunda operação, chamada ‘captura’.</p>
+    <p><b>Captura</b>: Ao realizar uma pré-autorização, é necessário confirmá-la para que a cobrança seja efetivada. O tempo limite para capturar uma transação pré-autorizada varia de adquirente para adquirente, que pode ser por exemplo, de até 5 dias após a data da pré-autorização.</p>
+    <p><b>Captura Automática</b>: É quando uma transação é autorizada e capturada no mesmo momento, isentando do lojista enviar uma confirmação posterior.</p>
+    <p><b>Cancelamento</b>: O cancelamento é necessário quando, por algum motivo, não se quer mais efetivar uma venda. No caso de uma pré-autorização, o cancelamento irá liberar o limite do cartão que foi sensibilizado em uma pré-autorização. Quando a transação já estiver sido capturada, o cancelamento irá desfazer a venda, mas deve ser executado até às 23:59:59 da data da autorização/captura.</p>
+    <p><b>Estorno</b>: O estorno é aplicável quando uma transação criada no dia anterior ou antes já estiver capturada. Neste caso, a transação será submetida no processo de 'chargeback’ pela adquirente.</p>
+
 </div>

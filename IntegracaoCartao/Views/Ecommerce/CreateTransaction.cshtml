@@ -25,10 +25,7 @@
     <div class="form-horizontal">
         <hr />
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <fieldset>
-
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })        
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Customer.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -88,7 +85,7 @@
                 @Html.LabelFor(model => model.Payment.CreditCard.CardNumber, htmlAttributes: new { @class = "control-label col-md-2" })
 
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Payment.CreditCard.CardNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Payment.CreditCard.CardNumber, new { htmlAttributes = new { @class = "form-control"} })
                     @Html.ValidationMessageFor(model => model.Payment.CreditCard.CardNumber, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -106,7 +103,7 @@
                 @Html.LabelFor(model => model.Payment.CreditCard.Brand, htmlAttributes: new { @class = "control-label col-md-2" })
 
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.Payment.CreditCard.Brand, brands)
+                    @Html.DropDownListFor(model => model.Payment.CreditCard.Brand, brands, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Payment.CreditCard.Brand, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -127,10 +124,7 @@
                     @Html.EditorFor(model => model.Payment.CreditCard.ExpirationDate, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Payment.CreditCard.ExpirationDate, "", new { @class = "text-danger" })
                 </div>
-            </div>
-
-        </fieldset>
-
+            </div>     
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
