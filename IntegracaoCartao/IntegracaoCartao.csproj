@@ -200,6 +200,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Ecommerce\CreateTransaction.cshtml" />
     <Content Include="Views\Ecommerce\OperationTransaction.cshtml" />
+    <Content Include="Views\Ecommerce\Falha.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

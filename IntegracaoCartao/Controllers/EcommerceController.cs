@@ -53,9 +53,12 @@ namespace IntegracaoCartao.Controllers
 
                 var response = RequestHttp("Post", requestUri, stringContent);
 
+                var contents = response.Content?.ReadAsStringAsync().Result;
+
+                ViewBag.ServiceResponse = contents;
+
                 if (response?.IsSuccessStatusCode == true)
                 {
-                    var contents = response.Content.ReadAsStringAsync().Result;
                     CreateTransactionResponse createTransactionResponse = JsonConvert.DeserializeObject<CreateTransactionResponse>(contents);
 
                     ViewBag.PaymentId = createTransactionResponse.Payment.PaymentId;
@@ -90,9 +93,14 @@ namespace IntegracaoCartao.Controllers
                     string queryUrn = string.Format("/v2/sales/{0}", request.PaymentId);
                     string queryUri = string.Concat(queryUrl, queryUrn);
                     var queryResponse = RequestHttp("Get", queryUri);
+                    ViewBag.ServiceResponse = queryResponse.Content?.ReadAsStringAsync().Result;
                     if (queryResponse.IsSuccessStatusCode)
                     {
                         ViewBag.ReturnMessage = "Transação consultada com sucesso";
+                    }
+                    else
+                    {
+                        ViewBag.ReturnMessage = "Transação não consultada";
                     }
                     break;
 
@@ -101,9 +109,14 @@ namespace IntegracaoCartao.Controllers
                     string captureUrn = string.Format("/v2/sales/{0}/capture", request.PaymentId);
                     string captureUri = string.Concat(captureUrl, captureUrn);
                     var captureResponse = RequestHttp("Put", captureUri);
+                    ViewBag.ServiceResponse = captureResponse.Content?.ReadAsStringAsync().Result;
                     if (captureResponse.IsSuccessStatusCode)
                     {
                         ViewBag.ReturnMessage = "Transação capturada com sucesso";
+                    }
+                    else
+                    {
+                        ViewBag.ReturnMessage = "Não foi possível capturar a transação";
                     }
                     break;
 
@@ -112,9 +125,14 @@ namespace IntegracaoCartao.Controllers
                     string voidUrn = string.Format("/v2/sales/{0}/void", request.PaymentId);
                     string voidUri = string.Concat(voidUrl, voidUrn);
                     var voidResponse = RequestHttp("Put", voidUri);
+                    ViewBag.ServiceResponse = voidResponse.Content?.ReadAsStringAsync().Result;
                     if (voidResponse.IsSuccessStatusCode)
                     {
                         ViewBag.ReturnMessage = "Transação cancelada com sucesso";
+                    }
+                    else
+                    {
+                        ViewBag.ReturnMessage = "Não foi possível cancelar a transação";
                     }
                     break;
 
