@@ -22,113 +22,106 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-group ">
         <hr />
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })        
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Customer.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Customer.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Customer.Name, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.MerchantOrderId, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.MerchantOrderId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MerchantOrderId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Payment.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Payment.Amount, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Payment.Amount, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Payment.Capture, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                <div class="col-md-1">
-                    @Html.CheckBoxFor(model => model.Payment.Capture)
-                    @Html.ValidationMessageFor(model => model.Payment.Capture, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Payment.Installments, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Payment.Installments, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Payment.Installments, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Payment.Type, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Payment.Type, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Payment.Type, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Payment.CreditCard.CardNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Payment.CreditCard.CardNumber, new { htmlAttributes = new { @class = "form-control"} })
-                    @Html.ValidationMessageFor(model => model.Payment.CreditCard.CardNumber, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Payment.CreditCard.SecurityCode, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Payment.CreditCard.SecurityCode, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Payment.CreditCard.SecurityCode, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Payment.CreditCard.Brand, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.Payment.CreditCard.Brand, brands, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Payment.CreditCard.Brand, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Payment.CreditCard.Holder, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Payment.CreditCard.Holder, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Payment.CreditCard.Holder, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Payment.CreditCard.ExpirationDate, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Payment.CreditCard.ExpirationDate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Payment.CreditCard.ExpirationDate, "", new { @class = "text-danger" })
-                </div>
-            </div>     
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            @Html.LabelFor(model => model.Customer.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Customer.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Otavio Lopes" } })
+                @Html.ValidationMessageFor(model => model.Customer.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MerchantOrderId, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MerchantOrderId, new { htmlAttributes = new { @class = "form-control", @placeholder = "12345" } })
+                @Html.ValidationMessageFor(model => model.MerchantOrderId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Payment.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Payment.Amount, new { htmlAttributes = new { @class = "form-control", @placeholder = "105200" } })
+                @Html.ValidationMessageFor(model => model.Payment.Amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Payment.Installments, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Payment.Installments, new { htmlAttributes = new { @class = "form-control", @placeholder = "1" } })
+                @Html.ValidationMessageFor(model => model.Payment.Installments, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Payment.CreditCard.CardNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Payment.CreditCard.CardNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "1234123412341234" } })
+                @Html.ValidationMessageFor(model => model.Payment.CreditCard.CardNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Payment.CreditCard.SecurityCode, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Payment.CreditCard.SecurityCode, new { htmlAttributes = new { @class = "form-control", @placeholder = "123" } })
+                @Html.ValidationMessageFor(model => model.Payment.CreditCard.SecurityCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Payment.CreditCard.Brand, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Payment.CreditCard.Brand, brands, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Payment.CreditCard.Brand, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Payment.CreditCard.Holder, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Payment.CreditCard.Holder, new { htmlAttributes = new { @class = "form-control", @placeholder = "Otavio Cordeiro Lopes" } })
+                @Html.ValidationMessageFor(model => model.Payment.CreditCard.Holder, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Payment.CreditCard.ExpirationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Payment.CreditCard.ExpirationDate, new { htmlAttributes = new { @class = "form-control", @placeholder = "03/2020" } })
+                @Html.ValidationMessageFor(model => model.Payment.CreditCard.ExpirationDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Payment.Capture, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.Payment.Capture)
+                @Html.ValidationMessageFor(model => model.Payment.Capture, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="col-md-offset-3 col-md-10">
+                <input type="submit" value="Enviar" class="btn btn-info btn-lg" />
             </div>
         </div>
 

@@ -17,7 +17,7 @@ namespace IntegracaoCartao.Contracts.Request
         }
 
         [Required(ErrorMessage = "O numero do pedido é obrigatório")]
-        [Display(Name = "Numero do pedido")]
+        [Display(Name = "Nº pedido")]        
         public string MerchantOrderId { get; set; }
         public Customer Customer { get; set; }
         public Payment Payment { get; set; }

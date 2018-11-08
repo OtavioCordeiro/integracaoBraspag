@@ -23,20 +23,7 @@ namespace IntegracaoCartao.Controllers
         [HttpGet]
         public ActionResult CreateTransaction()
         {
-            CreateTransactionRequest request = new CreateTransactionRequest();
-            request.Customer.Name = "Otavio teste";
-            request.MerchantOrderId = "12333";
-            request.Payment.Amount = 1565;
-            request.Payment.Capture = false;
-            request.Payment.Installments = 1;
-            request.Payment.Type = "CreditCard";
-            request.Payment.CreditCard.SecurityCode = "123";
-            request.Payment.CreditCard.CardNumber = "1234123412341234";
-            request.Payment.CreditCard.Holder = "Otavio Lopes";
-            request.Payment.CreditCard.Brand = "Visa";
-            request.Payment.CreditCard.ExpirationDate = "02/2019";
-
-            return View(request);
+            return View();
         }
 
         [HttpPost]

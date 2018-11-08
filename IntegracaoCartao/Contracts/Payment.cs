@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -14,9 +15,10 @@ namespace IntegracaoCartao.Contracts
         }
 
         public string Provider { get; set; }
+        [ReadOnly(true)]
         public string Type { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "O valor deve ser maior que zero")]
-        [Display(Name = "Valor da transação")]
+        [Display(Name = "Valor")]
         public int Amount { get; set; }
         public bool Capture { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "A parcela deve ser maior que zero")]
