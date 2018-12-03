@@ -110,11 +110,11 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Payment.Capture, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-horizontal">
+            @Html.LabelFor(model => model.Payment.Capture, htmlAttributes: new { @class = "form-check-input" })
 
-            <div class="col-md-10">
-                @Html.CheckBoxFor(model => model.Payment.Capture)
+            <div class="">
+                @Html.CheckBoxFor(model => model.Payment.Capture, htmlAttributes: new { @class = "form-check-input" })
                 @Html.ValidationMessageFor(model => model.Payment.Capture, "", new { @class = "text-danger" })
             </div>
         </div>

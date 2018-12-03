@@ -160,6 +160,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\EcommerceService.cs" />
+    <Compile Include="Service\IEcommerceService.cs" />
+    <Compile Include="Validation\IValidation.cs" />
+    <Compile Include="Validation\ValidationModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

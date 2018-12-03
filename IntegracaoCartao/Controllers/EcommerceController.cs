@@ -9,11 +9,22 @@ using System.Web.Mvc;
 using System.Text;
 using System.Configuration;
 using IntegracaoCartao.Contracts.Response;
+using IntegracaoCartao.Validation;
+using IntegracaoCartao.Service;
 
 namespace IntegracaoCartao.Controllers
 {
     public class EcommerceController : Controller
     {
+        IValidation _validation;
+        IEcommerceService _ecommerceService;
+
+        public EcommerceController()
+        {
+            _validation = new ValidationModel();
+            _ecommerceService = new EcommerceService();
+        }
+
         // GET: Ecommerce
         public ActionResult Index()
         {
@@ -29,38 +40,24 @@ namespace IntegracaoCartao.Controllers
         [HttpPost]
         public ActionResult CreateTransaction(CreateTransactionRequest request)
         {
-            if (ModelState.IsValid)
+            if (_validation.ValidationModelState(ModelState))
             {
 
-                string jsonRequest = JsonConvert.SerializeObject(request);
-                StringContent stringContent = new StringContent(jsonRequest, UnicodeEncoding.UTF8, "application/json");
+                bool success = _ecommerceService.CreateTransaction(request, ViewBag);
 
-                string transactionUrl = ConfigurationManager.AppSettings["TransactionUrl"];
-                string requestUri = string.Concat(transactionUrl, "/v2/sales");
-
-                var response = RequestHttp("Post", requestUri, stringContent);
-
-                var contents = response.Content?.ReadAsStringAsync().Result;
-
-                ViewBag.ServiceResponse = contents;
-
-                if (response?.IsSuccessStatusCode == true)
+                if (success)
                 {
-                    CreateTransactionResponse createTransactionResponse = JsonConvert.DeserializeObject<CreateTransactionResponse>(contents);
-
-                    ViewBag.PaymentId = createTransactionResponse.Payment.PaymentId;
-                    ViewBag.ReturnMessage = "Transação criada com sucesso";
-
                     return View("OperationTransaction");
-
                 }
                 else
                 {
                     return View("Falha");
                 }
             }
-
-            return View(request);
+            else
+            {
+                return View(request);
+            }
         }
 
         [HttpGet]
