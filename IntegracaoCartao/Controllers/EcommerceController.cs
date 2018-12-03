@@ -73,51 +73,15 @@ namespace IntegracaoCartao.Controllers
             switch (request.Operation)
             {
                 case Contracts.Request.OperationTransaction.Query:
-                    string queryUrl = ConfigurationManager.AppSettings["QueryUrl"];
-                    string queryUrn = string.Format("/v2/sales/{0}", request.PaymentId);
-                    string queryUri = string.Concat(queryUrl, queryUrn);
-                    var queryResponse = RequestHttp("Get", queryUri);
-                    ViewBag.ServiceResponse = queryResponse.Content?.ReadAsStringAsync().Result;
-                    if (queryResponse.IsSuccessStatusCode)
-                    {
-                        ViewBag.ReturnMessage = "Transação consultada com sucesso";
-                    }
-                    else
-                    {
-                        ViewBag.ReturnMessage = "Transação não consultada";
-                    }
+                    _ecommerceService.QueryTransaction(request, ModelState);
                     break;
 
                 case Contracts.Request.OperationTransaction.Capture:
-                    string captureUrl = ConfigurationManager.AppSettings["TransactionUrl"];
-                    string captureUrn = string.Format("/v2/sales/{0}/capture", request.PaymentId);
-                    string captureUri = string.Concat(captureUrl, captureUrn);
-                    var captureResponse = RequestHttp("Put", captureUri);
-                    ViewBag.ServiceResponse = captureResponse.Content?.ReadAsStringAsync().Result;
-                    if (captureResponse.IsSuccessStatusCode)
-                    {
-                        ViewBag.ReturnMessage = "Transação capturada com sucesso";
-                    }
-                    else
-                    {
-                        ViewBag.ReturnMessage = "Não foi possível capturar a transação";
-                    }
+                    _ecommerceService.CaptureTransaction(request, ModelState);
                     break;
 
                 case Contracts.Request.OperationTransaction.Void:
-                    string voidUrl = ConfigurationManager.AppSettings["TransactionUrl"];
-                    string voidUrn = string.Format("/v2/sales/{0}/void", request.PaymentId);
-                    string voidUri = string.Concat(voidUrl, voidUrn);
-                    var voidResponse = RequestHttp("Put", voidUri);
-                    ViewBag.ServiceResponse = voidResponse.Content?.ReadAsStringAsync().Result;
-                    if (voidResponse.IsSuccessStatusCode)
-                    {
-                        ViewBag.ReturnMessage = "Transação cancelada com sucesso";
-                    }
-                    else
-                    {
-                        ViewBag.ReturnMessage = "Não foi possível cancelar a transação";
-                    }
+                    _ecommerceService.VoidTransaction(request, ModelState);
                     break;
 
                 default:

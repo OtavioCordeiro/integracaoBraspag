@@ -12,10 +12,10 @@ namespace IntegracaoCartao.Service
     {
         bool CreateTransaction(CreateTransactionRequest createTransactionRequest, dynamic viewBag);
 
-        void CaptureTransaction(OperationTransactionRequest operationTransactionRequest);
+        void CaptureTransaction(OperationTransactionRequest operationTransactionRequest, dynamic viewBag);
 
-        void VoidTransaction(OperationTransactionRequest operationTransactionRequest);
+        void VoidTransaction(OperationTransactionRequest operationTransactionRequest, dynamic viewBag);
 
-        void QueryTransaction(OperationTransactionRequest operationTransactionRequest);
+        void QueryTransaction(OperationTransactionRequest operationTransactionRequest, dynamic viewBag);
     }
 }
